@@ -9,9 +9,9 @@ bill = float(input("What was the total bill? $"))
 tip = int(input("How much tip would you like to give? 10, 12 or 15? "))
 people = int(input("How many people to split the bill? "))
 
-# The result is calculated based of the formula: bill * percentage
+# The result is calculated based of the formula: bill * percentage.
 
-# Adding +1 here in order to be able to multiply directy bellow, (ex. 100 * 1.12 = 112)
+# Adding +1 here in order to be able to multiply directy bellow, (ex. 100 * 1.12 = 112).
 percentage = tip / 100 + 1
 # This is the combined value.
 total = bill * percentage
