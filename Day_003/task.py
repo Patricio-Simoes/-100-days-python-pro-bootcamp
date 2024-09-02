@@ -1,3 +1,6 @@
+# The final task of day 3 was to build a little "crossroads" game using if/else statements where,
+# the final goal was to select the correct options in order to find the treasure and reach the end of the game.
+
 import sys
 
 ascii_art = """
