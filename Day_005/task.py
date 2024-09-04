@@ -1,6 +1,6 @@
 # The final task of day 5 was a password generator.
 # I've taken the liberty to modify the request a bit.
-# This script receive the password length from the user and then proceeds to generate a random password made of letters, digits and symbols.
+# This script receives the password length from the user and then proceeds to generate a random password made of letters, digits and symbols.
 # The original request asked for the number of letters, digits and symbols aswell. I have made is so that, these variables are randomly generated.
 
 import string
