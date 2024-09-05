@@ -1,4 +1,4 @@
-#* This list represents the pools of words to draw from.
+#* This list represents the pool of words to draw from.
 
 words = [
     "abruptly",

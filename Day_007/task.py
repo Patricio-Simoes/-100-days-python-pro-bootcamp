@@ -1,5 +1,5 @@
 # The task of day 7 was creating a hangman game.
-# This script makes use of concepts learned in previous days to achieve that goal.abs
+# This script makes use of concepts learned in previous days to achieve that goal.
 
 import random
 from words import words
@@ -41,6 +41,7 @@ def status():
     print(stages[lifes])
     print(f"***********************{lifes}/6 LIVES LEFT***********************")
 
+#* This function checks if either conditions to end the game have been met and returns either True or False.
 def is_game_over():
     if lifes == 0:
         global word
