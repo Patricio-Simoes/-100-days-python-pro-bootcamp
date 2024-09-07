@@ -61,5 +61,3 @@ while not exit_status:
     elif opt == "3":
         print("Goodbye...")
         exit_status = True
-
-# TODO: Shift after z.
