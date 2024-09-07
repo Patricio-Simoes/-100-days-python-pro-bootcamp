@@ -1,7 +1,6 @@
 # The task of day 9 was creating a script that simulated a silent auction house.
-# Thsi script uses a dictionary to allow multiple users to "bid" a certain ammount and the, pass the device to another user to do the same.
+# This script uses a dictionary to allow multiple users to "bid" a certain ammount and the, pass the device to another user to do the same.
 # Once there are no more users, the scripts prints who bid the highest and declares the winner.
-
 
 from ascii_art import logo
 import os
@@ -21,7 +20,7 @@ def get_bid():
     while True:
         bid = input("Insert your bid: $")
         try:
-            bid= float(bid)
+            bid = float(bid)
             break
         except ValueError:
             print("Error: The input is invalid!")
