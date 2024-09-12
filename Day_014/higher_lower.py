@@ -1,3 +1,7 @@
+# The task of day 14 was creating a shigher/lower guessing game.
+# With every turn, two random elements are picked from a pool and the user has to guess which of the two has a higher followers count.
+# The game continues with each right guess and ends on the first wrong guess.
+
 from data import data
 from ascii_art import logo, vs
 import random
