@@ -1,0 +1,1 @@
+# The task of day 16 was creating the coffee machine made in day 15, but this time, following the OOP paradigm.

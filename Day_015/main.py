@@ -1,3 +1,14 @@
+# The task of day 15 was creating a coffee machine.
+# This coffee machine processes user's requests and receives payments, retunring the corresponding changes and requested items.
+# Available options are:
+#  - 1. Cappuccino
+#  - 2. Latte
+#  - 3. Expresso
+#  - report
+#  - refill
+#  - off
+
+
 from ascii_art import logo
 from data import MENU, resources, input_options
 import os
@@ -131,7 +142,7 @@ while True:
                 #? Checks if a change is due and updates the machine's money value.
                 change = 0
                 if payment > MENU[item]["cost"]:
-                    change = payment - MENU[item]["cost"]
+                    change = round(payment - MENU[item]["cost"], 2)
                     print(f"Here is your {item} and your change of {change}$ enjoy!")
                 else:
                     print(f"Here is your {item}, enjoy!")
