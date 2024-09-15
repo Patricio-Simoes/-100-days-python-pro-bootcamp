@@ -36,7 +36,7 @@ def get_input(previous = ""):
     except ValueError:
         while True:
             x = input("Insert the first number: ")
-            try:
+            try:pennies
                 x = float(x)
                 break
             except ValueError:
