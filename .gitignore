@@ -1,2 +1,11 @@
+# VSCodium.
+
 __pycache__/
 .vscode/
+
+# Python venv.
+
+bin/
+lib/
+lib64/
+include/
