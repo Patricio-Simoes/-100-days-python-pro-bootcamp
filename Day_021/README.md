@@ -2,4 +2,6 @@
 
 The following is a simple snake game, making use of Python's turtle module.
 
-![Preview](./assets/game.png)
+<p align="center">
+  <img src="./assets/game.png" alt="Preview">
+</p>
