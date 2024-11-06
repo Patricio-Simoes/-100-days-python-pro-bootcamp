@@ -1,5 +1,6 @@
-# The task for day 21 was completng the snake game started on day 21 using the turtle module and OOP concepts.
-# Some modifications were made to the starting code to slightly improve user experience and provide a game reset mechanism.
+# The task for day 21 was completing the snake game started on day 21 using the turtle module and OOP concepts.
+# Some modifications were made to the starting code to slightly improve user experience and
+# provide a game reset mechanism.
 
 from Classes.food import Food
 from Classes.scoreboard import Scoreboard
@@ -16,9 +17,11 @@ SEGMENT_MODIFIER = 2
 SPEED_MODIFIER = 1.10
 TAIL_DISTANCE_BUFFER = 1
 
+
 def on_key_press():
     global key_pressed
     key_pressed = True
+
 
 def hold_screen():
     """
@@ -38,6 +41,7 @@ def hold_screen():
     while not key_pressed:
         window.screen.update()
 
+
 def has_snake_eaten_food():
     """
     * Detects if the snake's head has eaten food.
@@ -50,12 +54,14 @@ def has_snake_eaten_food():
             snake.speed *= SPEED_MODIFIER
         scoreboard.increase()
 
+
 def has_snake_reached_boudaries():
     """
     * Detects if the snake's head has reached the window boundaries.
     """
     if snake.head.xcor() > GAME_OVER_COR or snake.head.xcor() < -GAME_OVER_COR or snake.head.ycor() > GAME_OVER_COR or snake.head.ycor() < -GAME_OVER_COR:
         return True
+
 
 def has_snake_hit_tail():
     """
@@ -66,12 +72,14 @@ def has_snake_hit_tail():
         if snake.head.distance(segment) <= TAIL_DISTANCE_BUFFER:
             return True
 
+
 def game_over():
     """
     * Ends the game.
     """
     global is_game_on
     scoreboard.game_over()
+
 
 #####################
 # Game starts here. #

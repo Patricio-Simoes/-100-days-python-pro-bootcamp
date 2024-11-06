@@ -5,9 +5,10 @@ DOWN = 270
 LEFT = 180
 RIGHT = 0
 
-STARTING_POSITIONS = [(-20,0), (0,0), (20,0)]
+STARTING_POSITIONS = [(-20, 0), (0, 0), (20, 0)]
 
 speed = 5
+
 
 class Snake:
 
@@ -15,7 +16,7 @@ class Snake:
         self.segments = []
         self.create_snake()
         self.head = self.segments[0]
-    
+
     def create_snake(self):
         for position in STARTING_POSITIONS:
             new_seg = Turtle("square")
@@ -23,15 +24,15 @@ class Snake:
             new_seg.penup()
             new_seg.goto(position)
             self.segments.append(new_seg)
-    
+
     def move(self):
-        #? Method responsible for keeping segments attached when the snake turns.
+        # Method responsible for keeping segments attached when the snake turns.
         for index in range(len(self.segments) - 1, 0, -1):
             new_x = self.segments[index - 1].xcor()
             new_y = self.segments[index - 1].ycor()
             self.segments[index].goto(new_x, new_y)
         self.head.forward(speed)
-    
+
     def up(self):
         if self.head.heading() != DOWN:
             self.head.setheading(UP)

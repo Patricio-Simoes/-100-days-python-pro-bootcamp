@@ -3,6 +3,10 @@
 __pycache__/
 .vscode/
 
+# PyCharm.
+
+.idea/
+
 # Python venv.
 
 bin/

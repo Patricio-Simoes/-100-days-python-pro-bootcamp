@@ -6,6 +6,7 @@ SPEED = 50
 STRETCH_HEIGHT = 1
 STRETCH_WIDTH = 5
 
+
 class Player(Turtle):
     def __init__(self, HORIZONTAL_EDGE, VERTICAL_EDGE):
         super().__init__()

@@ -4,6 +4,7 @@ BACKGROUND_COLOR = "black"
 HEIGHT = 600
 WIDTH = 600
 
+
 class Window:
 
     def __init__(self):

@@ -2,6 +2,7 @@ from turtle import Turtle
 
 STARTING_SPEED = 2
 
+
 class Ball(Turtle):
     def __init__(self):
         super().__init__()
@@ -15,7 +16,7 @@ class Ball(Turtle):
         self.penup()
         self.x_move = STARTING_SPEED
         self.y_move = STARTING_SPEED
-    
+
     def move(self):
         """Moves the ball.
         """
@@ -34,11 +35,11 @@ class Ball(Turtle):
         Additionally, increases the current ball speed by 10%.
         """
         self.x_move *= -1.1
-    
+
     def reset(self):
-        """Resets the ball back to it's original position and reverts the boucing direction.
+        """Resets the ball back to its original position and reverts the bouncing direction.
         """
         self.x_move = STARTING_SPEED
         self.y_move = STARTING_SPEED
-        self.goto(0,0)
+        self.goto(0, 0)
         self.horizontal_bounce()
