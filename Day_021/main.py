@@ -1,4 +1,4 @@
-# The task for day 21 was completing the snake game started on day 21 using the turtle module and OOP concepts.
+# The task for day 21 was completing the snake game started on day 20 using the turtle module and OOP concepts.
 # Some modifications were made to the starting code to slightly improve user experience and
 # provide a game reset mechanism.
 
