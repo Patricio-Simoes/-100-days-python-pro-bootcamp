@@ -1,0 +1,2 @@
+Average week temperature: 17.428571428571427
+Max week temperature: 24 º on Sunday
