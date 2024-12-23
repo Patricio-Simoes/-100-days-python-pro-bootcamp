@@ -1,4 +1,4 @@
-from turtle import *
+from turtle import Turtle, Screen
 from random import randint, choice
 
 def draw_shape(sides):

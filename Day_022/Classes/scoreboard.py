@@ -6,13 +6,21 @@ FONT = ("Courier Prime", 32, "normal")
 
 class Scoreboard(Turtle):
     def __init__(self, height):
+        """
+        Initializes the scoreboard object and sets up the initial score.
+
+        :param height: The height of the game window, used for positioning the scoreboard.
+        """
         super().__init__()
         self.height = height
         self.create_scoreboard()
         self.game_start()
 
     def create_scoreboard(self):
-        """Creates the scoreboard.
+        """
+        Sets up the scoreboard's appearance and initializes player scores.
+
+        :return: None
         """
         self.color("white")
         self.penup()
@@ -21,17 +29,23 @@ class Scoreboard(Turtle):
         self.player_two_score = 0
 
     def update_scoreboard(self):
-        """Updates the scoreboard after a player scores.
+        """
+        Updates the scoreboard display after a player scores.
+
+        :return: None
         """
         self.clear()
         self.goto(self.xcor(), self.height / 2 - 75)
-        self.write(f"{self.player_two_score} - {self.player_one_score}", align=ALIGN, font=FONT)
+        self.write(
+            f"{self.player_two_score} - {self.player_one_score}", align=ALIGN, font=FONT
+        )
 
     def score(self, player):
-        """Scores a point for the player
+        """
+        Increments the score for the specified player.
 
-        Args:
-            player (String): Identifies the player. Either player_one or player_two.
+        :param player: Identifies the player ("player_one" or "player_two").
+        :return: None
         """
         if player == "player_one":
             self.player_one_score += 1
@@ -40,6 +54,13 @@ class Scoreboard(Turtle):
         self.update_scoreboard()
 
     def game_start(self):
-        """Holds the game and awaits for the the user to press a key.
         """
-        self.write("Press any key to start...", align=ALIGN, font=("Courier Prime", 24, "normal"))
+        Displays a message prompting the user to press a key to start the game.
+
+        :return: None
+        """
+        self.write(
+            "Press any key to start...",
+            align=ALIGN,
+            font=("Courier Prime", 24, "normal"),
+        )

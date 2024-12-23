@@ -13,21 +13,67 @@ SCREEN_REFRESH_TIMER = 0.015
 
 
 def on_key_press():
+    """
+    Sets the key_pressed flag to True when a key is pressed.
+
+    :return: None
+    """
     global key_pressed
     key_pressed = True
 
 
 def hold_screen():
     """
-    * Holds the screen on stand by until the player presses any key.
+    Holds the screen on standby until the player presses any key.
+
+    :return: None
     """
     global window
 
-    for key in ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j',
-                'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't',
-                'u', 'v', 'w', 'x', 'y', 'z', '0', '1', '2', '3',
-                '4', '5', '6', '7', '8', '9', 'space', 'Return',
-                'Up', 'Down', 'Left', 'Right']:
+    for key in [
+        "a",
+        "b",
+        "c",
+        "d",
+        "e",
+        "f",
+        "g",
+        "h",
+        "i",
+        "j",
+        "k",
+        "l",
+        "m",
+        "n",
+        "o",
+        "p",
+        "q",
+        "r",
+        "s",
+        "t",
+        "u",
+        "v",
+        "w",
+        "x",
+        "y",
+        "z",
+        "0",
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "space",
+        "Return",
+        "Up",
+        "Down",
+        "Left",
+        "Right",
+    ]:
         window.screen.onkey(on_key_press, key)
 
     window.screen.listen()
@@ -69,13 +115,18 @@ while True:
     window.screen.onkey(player_two.go_down, "s")
 
     # Detects collision with vertical edges.
-    if ball.ycor() >= (window.HEIGHT / 2 - 10) or ball.ycor() <= (-(window.HEIGHT / 2) + 10):
+    if ball.ycor() >= (window.HEIGHT / 2 - 10) or ball.ycor() <= (
+        -(window.HEIGHT / 2) + 10
+    ):
         ball.vertical_bounce()
 
     # Detects collision with paddles.
-    if (ball.distance(player_one) < BALL_PLAYER_COLLISION_DISTANCE and ball.xcor() > BALL_PLAYER_COLLISION_X_BUFFER or
-            ball.distance(player_two) < BALL_PLAYER_COLLISION_DISTANCE and
-            ball.xcor() < -BALL_PLAYER_COLLISION_X_BUFFER):
+    if (
+        ball.distance(player_one) < BALL_PLAYER_COLLISION_DISTANCE
+        and ball.xcor() > BALL_PLAYER_COLLISION_X_BUFFER
+        or ball.distance(player_two) < BALL_PLAYER_COLLISION_DISTANCE
+        and ball.xcor() < -BALL_PLAYER_COLLISION_X_BUFFER
+    ):
         ball.horizontal_bounce()
 
     # Detects when the right paddle misses.

@@ -2,11 +2,7 @@ from prettytable import PrettyTable
 
 table = PrettyTable()
 
-pokemons = {
-    "Pickachu" : "Electric",
-    "Squirtle" : "Water",
-    "Charmander" : "Fire"
-}
+pokemons = {"Pickachu": "Electric", "Squirtle": "Water", "Charmander": "Fire"}
 
 table.field_names = ["Pokemon Name", "Type"]
 

@@ -19,21 +19,63 @@ TAIL_DISTANCE_BUFFER = 1
 
 
 def on_key_press():
+    """Sets the key_pressed flag to True when a key is pressed."""
     global key_pressed
     key_pressed = True
 
 
 def hold_screen():
     """
-    * Holds the screen on stand by until the player presses any key.
+    Holds the screen on standby until the player presses any key.
+
+    This function listens for key presses and updates the screen until a key is pressed.
     """
     global window
 
-    for key in ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j',
-                'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't',
-                'u', 'v', 'w', 'x', 'y', 'z', '0', '1', '2', '3',
-                '4', '5', '6', '7', '8', '9', 'space', 'Return',
-                'Up', 'Down', 'Left', 'Right']:
+    for key in [
+        "a",
+        "b",
+        "c",
+        "d",
+        "e",
+        "f",
+        "g",
+        "h",
+        "i",
+        "j",
+        "k",
+        "l",
+        "m",
+        "n",
+        "o",
+        "p",
+        "q",
+        "r",
+        "s",
+        "t",
+        "u",
+        "v",
+        "w",
+        "x",
+        "y",
+        "z",
+        "0",
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "space",
+        "Return",
+        "Up",
+        "Down",
+        "Left",
+        "Right",
+    ]:
         window.screen.onkey(on_key_press, key)
 
     window.screen.listen()
@@ -44,8 +86,12 @@ def hold_screen():
 
 def has_snake_eaten_food():
     """
-    * Detects if the snake's head has eaten food.
-    * Increases the snake's moving speed by SPEED_MODIFIER.
+    Checks if the snake's head has eaten food.
+
+    If food is eaten, refreshes the food position, extends the snake,
+    and increases the snake's speed if it is below the maximum speed.
+
+    :return: None
     """
     if snake.head.distance(food) <= FOOD_DISTANCE_BUFFER:
         food.refresh()
@@ -57,15 +103,24 @@ def has_snake_eaten_food():
 
 def has_snake_reached_boudaries():
     """
-    * Detects if the snake's head has reached the window boundaries.
+    Checks if the snake's head has reached the window boundaries.
+
+    :return: True if the snake has reached the boundaries, otherwise False.
     """
-    if snake.head.xcor() > GAME_OVER_COR or snake.head.xcor() < -GAME_OVER_COR or snake.head.ycor() > GAME_OVER_COR or snake.head.ycor() < -GAME_OVER_COR:
+    if (
+        snake.head.xcor() > GAME_OVER_COR
+        or snake.head.xcor() < -GAME_OVER_COR
+        or snake.head.ycor() > GAME_OVER_COR
+        or snake.head.ycor() < -GAME_OVER_COR
+    ):
         return True
 
 
 def has_snake_hit_tail():
     """
-    * Detects is the snake's head has hit the tail.
+    Checks if the snake's head has collided with its tail.
+
+    :return: True if the snake has hit its tail, otherwise False.
     """
     global is_game_on
     for segment in snake.segments[1:]:
@@ -75,7 +130,9 @@ def has_snake_hit_tail():
 
 def game_over():
     """
-    * Ends the game.
+    Ends the game and displays the game over message.
+
+    :return: None
     """
     global is_game_on
     scoreboard.game_over()
@@ -112,7 +169,7 @@ while is_game_on:
 
     if has_snake_reached_boudaries() or has_snake_hit_tail():
         game_over()
-        time.sleep(0.5)
+        window.screen.delay(500)
         key_pressed = False
         hold_screen()
         scoreboard.reset()

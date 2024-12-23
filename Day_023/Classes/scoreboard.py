@@ -8,8 +8,9 @@ class Scoreboard(Turtle):
     def __init__(self, x_cor, y_cor):
         """
         Initializes the scoreboard object.
-        @param x_cor: Represents the screen's xcor().
-        @param y_cor: Represents the screen's ycor().
+
+        :param x_cor: The x-coordinate for the scoreboard's position.
+        :param y_cor: The y-coordinate for the scoreboard's position.
         """
         super().__init__()
         self.level = 0
@@ -19,7 +20,9 @@ class Scoreboard(Turtle):
 
     def create_scoreboard(self):
         """
-        Creates the scoreboard.
+        Sets up the scoreboard's appearance and initial display.
+
+        :return: None
         """
         self.color("white")
         self.penup()
@@ -29,12 +32,19 @@ class Scoreboard(Turtle):
 
     def update_scoreboard(self):
         """
-        Updates the scoreboard with the current level.
+        Increments the level and updates the scoreboard display.
+
+        :return: None
         """
         self.clear()
         self.level += 1
         self.write(f"Level: {self.level}", align=ALIGN, font=FONT)
 
     def game_over(self):
+        """
+        Displays the game over message at the center of the screen.
+
+        :return: None
+        """
         self.goto(0, 0)
         self.write("GAME OVER", align="center", font=FONT)

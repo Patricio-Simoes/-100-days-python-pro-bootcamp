@@ -1,8 +1,8 @@
 # Day 24 was all about files.
-# In this script two files are received:
-#   - The first, contains a list of names.
+# In this script, two files are received:
+#   - The first contains a list of names.
 #   - The second contains a letter template.
-# The goal is to start from the template file and write multiple letters, changing each subject's name,
+# The goal was to start from the template file and write multiple letters, changing each subject's name,
 # to the names read in the first file.
 
 NAMES_FILE = "Input/Names/invited_names.txt"
@@ -13,9 +13,10 @@ TEMPLATE_FILE = "Input/Letters/starting_letter.txt"
 
 def read_file(file):
     """
-    Tries to read the passed file and returns each line as a list item.
-    @param file: Specifies the file to read from.
-    @return: List with each line read.
+    Read the contents of a file and return each line as a list item.
+
+    :param file: The path to the file to read.
+    :return: A list of lines read from the file. Returns an empty list if an error occurs.
     """
     with open(file, "r") as file:
         try:
@@ -27,9 +28,10 @@ def read_file(file):
 
 def save_letter(file, content):
     """
+    Write content to a specified file.
 
-    @param file: Specifies the file to write to.
-    @param content: Specifies the content to write in the file.
+    :param file: The path to the file to write to.
+    :param content: The content to write in the file.
     """
     with open(file, "w") as file:
         try:
@@ -40,13 +42,12 @@ def save_letter(file, content):
 
 # List of people to invite.
 people = read_file(NAMES_FILE)
-# template[0] contains the line to be replaced.
+# Read the template file.
 template = read_file(TEMPLATE_FILE)
 
 for name in people:
     output = template[0].replace(PLACEHOLDER, name) + "\n"
-    i = 1
-    while i < len(template):
-        output += template[i] + "\n"
-        i += 1
-    save_letter(OUTPUT_PATH + "/letter_for_" + name, output)
+    # Append the remaining lines of the template to the output.
+    for line in template[1:]:
+        output += line + "\n"
+    save_letter(f"{OUTPUT_PATH}/letter_for_{name}", output)

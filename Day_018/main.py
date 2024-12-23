@@ -1,7 +1,8 @@
-# The task of day 18 was creating a hirst painting, making use of the turtle module and extracting the used colors from another image, using the colorgram module.
+# The task of day 18 was creating a Hirst painting, making use of the turtle module
+# and extracting the used colors from another image, using the colorgram module.
 
 import colorgram
-from turtle import *
+from turtle import Turtle, Screen
 from random import choice
 
 CIRCLE_SIZE = 20
@@ -16,12 +17,20 @@ screen = Screen()
 
 turtle.hideturtle()
 turtle.speed("fastest")
-screen.colormode(255) 
+screen.colormode(255)
 turtle.penup()
+
 
 def extract_colors(x, image):
     """
-    Extracts x colorx from a given image and returns a tuple rgb array with them.
+    Extracts a specified number of colors from a given image.
+
+    This function uses the colorgram module to extract colors and appends them
+    to the global rgb_colors list as RGB tuples.
+
+    :param x: The number of colors to extract from the image.
+    :param image: The path to the image file from which to extract colors.
+    :return: None
     """
     global rgb_colors
     colors = colorgram.extract(image, x)
@@ -32,9 +41,16 @@ def extract_colors(x, image):
         rgb = (r, g, b)
         rgb_colors.append(rgb)
 
+
 def draw_circle(x, y):
     """
-    Given x and y coordinates, turtle moves to them and draws a circle.
+    Draws a filled circle at the specified (x, y) coordinates.
+
+    The circle is filled with a randomly chosen color from the rgb_colors list.
+
+    :param x: The x-coordinate where the circle will be drawn.
+    :param y: The y-coordinate where the circle will be drawn.
+    :return: None
     """
     color = choice(rgb_colors)
     turtle.color(color)
@@ -45,10 +61,14 @@ def draw_circle(x, y):
     turtle.end_fill()
     turtle.penup()
 
+
 def draw_hirst():
     """
-    Draws a grid of ROWS x COLS and inside it, draws ROWS x COLS circles,
-    of radius CIRCLE_SIZE / 2, each spaced by SPACE_SIZE.
+    Draws a grid of circles based on the defined number of rows and columns.
+
+    Each circle is drawn with a radius of CIRCLE_SIZE / 2 and spaced by SPACE_SIZE.
+
+    :return: None
     """
     print(rgb_colors)
 
@@ -61,7 +81,8 @@ def draw_hirst():
             y = start_y + row * SPACE_SIZE
             draw_circle(x, y)
 
-extract_colors(20,'assets/painting.jpg')
+
+extract_colors(20, "assets/painting.jpg")
 
 draw_hirst()
 

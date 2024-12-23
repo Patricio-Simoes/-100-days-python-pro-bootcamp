@@ -8,8 +8,10 @@ import os
 import sys
 import time
 
+
 def cls():
     os.system("cls" if os.name == "nt" else "clear")
+
 
 def start():
     """
@@ -23,30 +25,31 @@ def start():
     print(menu.get_items())
     return input(": ").lower()
 
+
 menu = Menu()
 coffee_machine = CoffeeMaker()
 money_machine = MoneyMachine()
 
 while True:
     order = start()
-    #? Checks if the program should shutdown.
+    # ? Checks if the program should shutdown.
     if order == "off":
         print("Shutting down...")
         break
-    #? Checks if a report was asked.
+    # ? Checks if a report was asked.
     if order == "report":
         coffee_machine.report()
         money_machine.report()
-    #? If not, checks if the input is valid.
+    # ? If not, checks if the input is valid.
     else:
         item = menu.find_drink(order)
         while item is None:
             item = menu.find_drink(order)
             time.sleep(1)
             order = start()
-        #? The order is valid. Checks if the order can be made.
+        # ? The order is valid. Checks if the order can be made.
         if coffee_machine.is_resource_sufficient(item):
-            #? If the order can me made, payment is asked.
+            # ? If the order can me made, payment is asked.
             if money_machine.make_payment(item.cost):
                 print(f"One {order} comming up!")
                 coffee_machine.make_coffee(item)
