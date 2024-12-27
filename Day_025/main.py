@@ -95,7 +95,6 @@ while score < TOTAL_STATES:
     if check_user_input(user_input):
         states_list.remove(user_input)
         score += 1
-        print(score)
         ROW = STATES_DATAFRAME[STATES_DATAFRAME["state"].str.lower() == user_input]
         x_cor = ROW["x"].values[0]
         y_cor = ROW["y"].values[0]
