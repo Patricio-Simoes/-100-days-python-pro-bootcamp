@@ -1,4 +1,4 @@
-# Day_025 - List Comprehension
+# Day_026 - List Comprehension
 
 Day 26 was focused on learning the concept of list comprehension and explore it by working with dictionaries, lists and the pandas library.
 
