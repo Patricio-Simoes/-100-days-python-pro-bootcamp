@@ -1,7 +1,7 @@
 # Day_027 - List Comprehension
 
-Day 27 was focused on learning the concept of list comprehension and explore it by working with dictionaries, lists and the pandas library.
+Day 27 was focused was focused on the Tkinter module and explorings it's widgets.
 
-By the end of the day, a little program was created that returned the NATO phonetic code for a word inserted by the user:
+By the end of the day, the following mile to km converter was created:
 
 ![Preview](./assets/preview.png)
