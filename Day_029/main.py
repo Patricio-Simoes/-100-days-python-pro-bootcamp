@@ -4,11 +4,14 @@
 # The passwords can be randomly generated and copied to the clipboard, using
 # the pyperclip module.
 
+# On day 30, this app was updated to store in a JSON file instead.
+
 import tkinter as tk
 from tkinter import messagebox
+import json
 import os
-import random
 import pyperclip
+import random
 
 FONT_BOLD = ("Roboto", 12, "bold")
 FONT = ("Roboto", 12)
@@ -75,12 +78,7 @@ PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
 ICON_IMG = os.path.join(PROJECT_DIR, "assets", "logo.ico")
 LOGO_IMG = os.path.join(PROJECT_DIR, "assets", "logo.png")
 
-DATA_FILE = os.path.join(PROJECT_DIR, "data", "data.txt")
-
-# Check if the directory exists, and create it if it doesn't.
-if not os.path.exists(DATA_FILE):
-    with open(DATA_FILE, "w") as file:
-        file.write("Website | Email/Username | Password\n\n")
+DATA_FILE = os.path.join(PROJECT_DIR, "data", "data.json")
 
 
 def define_password_character_count(target_sum):
@@ -95,7 +93,7 @@ def define_password_character_count(target_sum):
         target_sum (int): The total number of characters the password should contain.
 
     Returns:
-        list: A list containing three integers: the count of letters, the count of numbers, 
+        list: A list containing three integers: the count of letters, the count of numbers,
         and the count of symbols.
     """
     letters = 1
@@ -118,15 +116,15 @@ def define_password_character_count(target_sum):
 def generate_password():
     """Generate a random password and copy it to the clipboard.
 
-    This function generates a password based on the character counts 
-    defined by the `define_password_character_count` function. It 
-    randomly selects letters, numbers, and symbols, shuffles them, 
-    and then copies the resulting password to the clipboard. The 
+    This function generates a password based on the character counts
+    defined by the `define_password_character_count` function. It
+    randomly selects letters, numbers, and symbols, shuffles them,
+    and then copies the resulting password to the clipboard. The
     generated password is also displayed in the password entry field.
 
     Returns:
         None
-    """  
+    """
     count = define_password_character_count(int(password_spinbox.get()))
 
     password_letters = [random.choice(LETTERS) for _ in range(count[0])]
@@ -152,52 +150,105 @@ def generate_password():
 
 def save():
     """
-    Save the entered website, email, and password to a file.
+    Save the entered website, email, and password to a specified data file.
 
     This function retrieves the values from the input fields for the website,
     email/username, and password. It checks if any of the fields are empty and
     displays an error message if so. If all fields are filled, it prompts the
     user to confirm the details before saving them to a specified data file.
 
-    The data is appended to the file in the format:
-    "website | email/username | password".
+    The data is stored in a JSON format, where each website is a key, and its
+    associated value is a dictionary containing the email/username and password.
+    If the file does not exist, it will be created. If the file is empty or
+    contains invalid JSON, it will be initialized.
 
     After saving, the input fields are cleared.
 
     Raises:
-        Error: If any of the fields are empty.
+        ValueError: If any of the fields are empty.
+        FileNotFoundError: If the specified data file does not exist when trying to read.
+        json.JSONDecodeError: If the data file is empty or contains invalid JSON.
 
     Returns:
         None
     """
     widgets = (website_entry, email_entry, password_entry)
-    if (
-        len(widgets[0].get()) == 0
-        or len(widgets[1].get()) == 0
-        or len(widgets[2].get()) == 0
-    ):
+    website = widgets[0].get()
+    email = widgets[1].get()
+    password = widgets[2].get()
+    if len(website) == 0 or len(email) == 0 or len(password) == 0:
         messagebox.showerror(
             title="Oops", message="Please don't leave any empty fields!"
         )
         return
     confirm = messagebox.askokcancel(
         title="Confirm details",
-        message=f"Website: {widgets[0].get()}\nEmail/Username: {widgets[1].get()}\nPassword: {widgets[2].get()}",
+        message=f"Website: {website}\nEmail/Username: {email}\nPassword: {password}",
     )
     if confirm:
-        with open(DATA_FILE, "a") as file:
-            file.write(
-                f"{widgets[0].get()} | {widgets[1].get()} | {widgets[2].get()}\n"
+        new_data = {website: {"email": email, "password": password}}
+        try:
+            with open(DATA_FILE, "r") as file:
+                file_data = json.load(file)
+        except FileNotFoundError:
+            with open(DATA_FILE, "w") as file:
+                json.dump(new_data, file, indent=4)
+        except json.JSONDecodeError:
+            file_data = {}
+        finally:
+            file_data.update(new_data)
+            with open(DATA_FILE, "w") as file:
+                json.dump(file_data, file, indent=4)
+            for widget in widgets:
+                widget.delete(0, tk.END)
+
+
+def search_data():
+    """
+    Search for the email/username and password associated with a given website entry.
+
+    This function retrieves the website name from the input field and attempts to
+    load the stored data from a specified JSON file. If the file is found and
+    contains valid JSON data, it checks for the presence of the specified website
+    entry. If found, it displays the associated email/username and password in a
+    message box. If the website entry is not found, an error message is shown.
+
+    If the data file does not exist or is empty, the function handles these cases
+    gracefully without raising an error.
+
+    Raises:
+        FileNotFoundError: If the specified data file does not exist.
+        json.JSONDecodeError: If the data file is empty or contains invalid JSON.
+        KeyError: If the specified website entry is not found in the loaded data.
+
+    Returns:
+        None
+    """
+    entry = website_entry.get()
+    if entry == "":
+        tk.messagebox.showwarning("Empty Website", "Please insert a valid website name.")
+        return
+    try:
+        with open(DATA_FILE, "r") as file:
+            file_data = json.load(file)
+    except FileNotFoundError:
+        pass
+    except json.JSONDecodeError:
+        file_data = {}
+    finally:
+        try:
+            tk.messagebox.showinfo(
+                entry,
+                f"Email/Username: {file_data[entry]['email']}\nPassword: {file_data[entry]['password']}",
             )
-        for widget in widgets:
-            widget.delete(0, tk.END)
+        except KeyError:
+            tk.messagebox.showerror(entry, f"{entry} was not found in the database.")
 
 
 window = tk.Tk()
 window.title("Password Manager")
 window.config(padx=50, pady=50)
 window.resizable(False, False)
-# window.iconbitmap(ICON_IMG)
 
 
 logo_img = tk.PhotoImage(file=LOGO_IMG)
@@ -210,7 +261,7 @@ website_label = tk.Label(text="Website:", font=FONT_BOLD)
 website_label.grid(row=1, column=0, sticky="E")
 
 website_entry = tk.Entry(font=FONT)
-website_entry.grid(row=1, column=1, columnspan=3, sticky="EW")
+website_entry.grid(row=1, column=1, columnspan=2, sticky="EW")
 website_entry.focus()
 
 email_label = tk.Label(text="Email/Username:", font=FONT_BOLD)
@@ -228,6 +279,9 @@ password_entry.grid(row=3, column=1, sticky="EW")
 password_spinbox = tk.Spinbox(from_=8, to=128, width=3)
 password_spinbox.grid(row=3, column=2)
 password_spinbox.bind("<Key>", "break")
+
+search_btn = tk.Button(text="Search", font=FONT, padx=5, pady=0, command=search_data)
+search_btn.grid(row=1, column=3, sticky="EW")
 
 generate_btn = tk.Button(
     text="Generate Password", font=FONT, padx=5, pady=0, command=generate_password

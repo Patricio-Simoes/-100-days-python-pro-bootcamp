@@ -3,7 +3,7 @@
 Day 29 was focused on creating a password manager, using the Tkinter module.
 
 It's a simple password manager, that allows you to store yur entries in
-a txt file under the format: Website | Email/Username | Password.
+a JSON file with Website keys.
 
 The passwords can be randomly generated and copied to the clipboard, using
 the pyperclip module.
