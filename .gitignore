@@ -14,3 +14,7 @@ lib/
 lib64
 include/
 pyvenv.cfg
+
+# Environment files.
+
+*.env
