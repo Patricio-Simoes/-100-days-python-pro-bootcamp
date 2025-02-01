@@ -1,7 +1,8 @@
 # On day 33, the concept of API was introduced, this is a small script that makes calls to the ISS Overhead API.
 
-# The ISS is a stelite that is on constant movement around the world. Through this script, an e-mail is sent
+# The ISS is a satelite that is on constant movement around the world. Through this script, an e-mail is sent
 # to the receiver specified on the .env file when the ISS is close to the specified geographic location.
+# In addition, a second API is used to define is it is dark time or not, making it so that, the e-mail is only sent during night times.
 
 from dotenv import load_dotenv
 import datetime as dt
@@ -48,9 +49,6 @@ def get_iss_position(data):
     iss_long = data["iss_position"]["longitude"]
 
     return (float(iss_lat), float(iss_long))
-
-def get_time_now(data):
-    sunrise = data["results"]
 
 def is_iss_close(pos):
     """Determine if the ISS is close to a specified position.
@@ -131,17 +129,12 @@ sun_response.raise_for_status()
 
 sun_data = sun_response.json()
 
-sunrise = sun_data["results"]["sunrise"].split("T")[1].split(":")[0]
-sunset = sun_data["results"]["sunset"].split("T")[1].split(":")[0]
-
-if is_dark(sunrise, sunset):
-    pass
+sunrise = int(sun_data["results"]["sunrise"].split("T")[1].split(":")[0])
+sunset = int(sun_data["results"]["sunset"].split("T")[1].split(":")[0])
 
 iss_pos = get_iss_position(iss_data)
 
-print(f"Data {sunrise}")
-
-if is_iss_close(iss_pos):
+if is_iss_close(iss_pos) and is_dark(sunrise, sunset):
     email_body = f"Subject:The ISS is close!\n\nLook up!\nThe ISS is at {iss_pos}"
     send_email(email_body)
 else:
