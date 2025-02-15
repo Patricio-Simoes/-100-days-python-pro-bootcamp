@@ -18,3 +18,7 @@ pyvenv.cfg
 # Environment files.
 
 *.env
+
+# Bruno's folder.
+
+100-Days-Python-Pro-Bootcamp
