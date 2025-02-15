@@ -1,3 +1,9 @@
+# On day 36, the goal was to create a script that was responsible for commuinicating
+# with two different APIs.
+# The first, used to fetch the stock prices of a given company, and the sconds, to fetch news
+# related to that company, if there was a significant stock price increase/decrease on the previous day.
+# These news, are processed and sent by email.
+
 from datetime import datetime, timedelta
 from dotenv import load_dotenv
 import os
@@ -11,7 +17,7 @@ ALPHA_ADVANTAGE_API = "https://www.alphavantage.co/query"
 # NewsAPI.org is used to get news related to a topic.
 NEWS_API = "https://newsapi.org/v2/everything"
 
-GET_NEWS_PERCENTAGE = 5
+GET_NEWS_RISE_PERCENTAGE = 5
 
 NEWS_COUNT = "3"
 
@@ -167,14 +173,14 @@ diff = (
     (float(stock_prices[1]) - float(stock_prices[0])) / float(stock_prices[0])
 ) * 100
 
-# if diff > GET_NEWS_PERCENTAGE:
-company_news = get_news()
+if diff > GET_NEWS_RISE_PERCENTAGE:
+    company_news = get_news()
 
-message = f"{ALPHA_PARAMETERS['symbol']}'s daily news\n"
+    message = f"{ALPHA_PARAMETERS['symbol']}'s daily news\n"
 
-for news in company_news:
-    message += "\n"
-    for key, value in news.items():
-        message += f"{key}: {value}\n"
+    for news in company_news:
+        message += "\n"
+        for key, value in news.items():
+            message += f"{key}: {value}\n"
 
-send_email(message)
+    send_email(message)
